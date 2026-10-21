@@ -12,3 +12,4 @@ Projekts ļauj lietotājam darboties ar mašīnu.
 - [ ] Mašīnas noparkošana
 - [ ] Mašīnas ātruma noteikšana
 - [ ] Mašīnas pārkrāsošana
+- [ ] .jar faila izveide
