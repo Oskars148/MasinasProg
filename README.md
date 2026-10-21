@@ -5,9 +5,10 @@ Projekts ļauj lietotājam darboties ar mašīnu.
 ### **Darāmo darbu saraksts**
 - [x] Uzsakta lokala projekta versionesana
 - [X] Papildinatas GitHub kratuves saturs iegust (pull) lokalai lietosanai
-- [ ] Pievienotas pārbaudes
-- [ ] Pasūtijuma noformēšana
-- [ ] Aktīvo pasūtijumu apskate
-- [ ] Pabeigto pasūtijumu apskate
-- [ ] Pasūtijumu vēsture
-- [ ] Faila nolasīšana un saglabāšana
+- [X] Pievienotas pārbaudes
+- [X] Mašīnas izveide
+- [ ] Mašīnas paātrināšana
+- [ ] Mašīnas bremzēšana
+- [ ] Mašīnas noparkošana
+- [ ] Mašīnas ātruma noteikšana
+- [ ] Mašīnas pārkrāsošana
