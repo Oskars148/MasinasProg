@@ -2,18 +2,31 @@ package masinas;
 
 import java.io.File;
 import java.time.Year;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 
 public class Garaza {
+	static String virknesParbaude(String zinojums, String noklusejums) {
+		String virkne;
+		do {
+			virkne = JOptionPane.showInputDialog(zinojums, noklusejums);
+			if(virkne == null)
+				return null;
+			
+			virkne = virkne.trim();			
+		} while(!Pattern.matches("^[\\p{L} ]+$", virkne));
+		
+		return virkne;
+	}
 
 	public static void main(String[] args) {
 		String izvelne, failaNosaukums = 
 				System.getProperty("user.home") + File.separator + 
 				"Desktop" + File.separator + "minkas.txt";
-				String[] darbibuSaraksts = {"Izveidot kaķi", "Izsaukt metodi", 
-						"Saglabāt failā", "Apskatīt failā saglabātos kaķus", 
+				String[] darbibuSaraksts = {"Izveidot mašīnu", "Izsaukt metodi", 
+						"Saglabāt failā", "Apskatīt failā saglabātās mašīnas", 
 						"Aizvērt"};
 				
 				do {
@@ -26,44 +39,31 @@ public class Garaza {
 						izvelne = "Aizvērt";
 					
 					switch(izvelne) {
-					case "Izveidot kaķi":
-						String minkasVards, skirne, spalvasKrasa, saimnieks,
+					case "Izveidot mašinu":
+						String marka, modelis, krasa, pasreizejiasAtrumus,
 						cels;
-						int dzGads = 0;
-						boolean siksnina;
 						
-						minkasVards = 
-								virknesParbaude("Ievadi kaķa vārdu", "Rudis");
-						skirne = 
-								virknesParbaude("Norādi kaķa šķirni", "Meinkūns");
-						spalvasKrasa =
-								virknesParbaude("Kāda ir kaķa kažoka krāsa?", "Pelēka");
-						saimnieks =
-								virknesParbaude("Kā sauc "+ minkasVards + " saimnieku?", 
-										"Mirdza");
+						marka = 
+								virknesParbaude("Ievadi mašīnas  marku", "BMW");
+						modelis = 
+								virknesParbaude("Norādi mašīnas modeli", "f90");
+						krasa =
+								virknesParbaude("Kāda ir mašīnas krāsa krāsa?", "Melna");
+						pasreizejiasAtrumus =
+								virknesParbaude("Kāds ir mašinas pašreizējais ātrums?", 
+										"170 km/h");
 						cels = 
-								virknesParbaude("Ievadi bildes nosaukumu", "rudis");
+								virknesParbaude("Ievadi bildes nosaukumu", "");
 						
-						dzGads = 
-								skaitlaParbaude("Norādi kaķa dzimšanas gadu", 
-								(Year.now().getValue())- 19, (Year.now().getValue()));
-						
-						int poga = JOptionPane.showConfirmDialog(null,
-								"Vai kaķim ir siksniņa?", "Siksniņa", 
-								JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-						if(poga == -1)
-							break;
-						
-						siksnina = (poga == 0) ? true : false;
-						runcis = new Minka(minkasVards, skirne, 
-								spalvasKrasa, saimnieks, dzGads, siksnina, cels);
+						Masina = new Masina(marka, modelis, 
+								krasa, pasreizejiasAtrumus, cels);
 						break;
 						
 					case "Izsaukt metodi":
-						if(runcis != null) {
-							String[] metozuSaraksts = {"Paglaudīt", 
-							"Nolasīt atribūtus", "Pabarot", "Nolikt gulēt",
-							"Palielināt vecumu", "Apskatīt vecumu", "Medīt"};
+						if(Masina != null) {
+							String[] metozuSaraksts = {"paātrināt", 
+							"bremzēt", "noparkoties", "noteikt ātrumu",
+							"pārkrāsot"};
 							
 							String metode = (String) JOptionPane.showInputDialog(null, 
 									"Izvēlies metodi", "Metodes izvēle",
@@ -74,44 +74,24 @@ public class Garaza {
 								break;
 							
 							switch(metode) {
-							case "Paglaudīt":
-								runcis.murrat();
+							case "paātrināt":
+								Masina.paatrinat();
 								break;
 								
-							case "Nolasīt atribūtus":
-								JOptionPane.showMessageDialog(null,
-										runcis.nolasitAtributus(), "Informācija", 
-										JOptionPane.INFORMATION_MESSAGE);
+							case "bremzēt":
+								Masina.bremzet();
 								break;
 								
-							case "Pabarot":
-								String atbilde = runcis.pabarot(virknesParbaude(
-										"Ar ko pabarosi kaķi?", "Desu"));
-								JOptionPane.showMessageDialog(null, "Kaķis atgriež "
-								+ atbilde, "Informācija",
-								JOptionPane.INFORMATION_MESSAGE);
+							case "noparkoties":
+								Masina.noparkoties();
 								break;
 								
-							case "Nolikt gulēt":
-								String prieksmets = virknesParbaude(
-										"Ko dosi kaķim līdzi uz gultiņu?", "Spilvens");
-								if(prieksmets == null || prieksmets.isEmpty())
-									runcis.gulet();
-								
-								else
-									runcis.gulet(prieksmets);
+							case "noteikt ātrumu":
+								Masina.noteiktAtrumu();
 								break;
 								
-							case "Palielināt vecumu":
-								runcis.palielinatVecumu();
-								break;
-								
-							case "Apskatīt vecumu":
-								runcis.nolasitVecumu();
-								break;
-								
-							case "Medīt":
-								runcis.medit();
+							case "pārkrāsot":
+								Masina.parkrasot();
 								break;
 							}
 							
