@@ -97,21 +97,21 @@ public class Garaza {
 							
 						} else 
 							JOptionPane.showMessageDialog(null,
-									"Vispirms izveido kaķi!", "Brīdinājums", 
+									"Vispirms izveido mašīnu!", "Brīdinājums", 
 									JOptionPane.WARNING_MESSAGE);
 						break;
 						
 					case "Saglabāt failā":
-						if(runcis != null)
-							DarbsArFailu.saglabat(runcis, failaNosaukums);
+						if(Masina != null)
+							DarbsArFailu.saglabat(Masina, failaNosaukums);
 						
 						else
 							JOptionPane.showMessageDialog(null,
-							"Vispirms izveido kaķi!", "Brīdinājums", 
+							"Vispirms izveido Mašīnu!", "Brīdinājums", 
 							JOptionPane.WARNING_MESSAGE);
 						break;
 						
-					case "Apskatīt failā saglabātos kaķus":
+					case "Apskatīt failā saglabātās mašīnas":
 						DarbsArFailu.nolasit(failaNosaukums);
 						break;
 						

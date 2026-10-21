@@ -8,8 +8,16 @@ import javax.swing.JOptionPane;
 
 public class Masina {
 	String marka, modelis, krasa;
-	int pasreizejaisAtrums;
+	String pasreizejaisAtrums;
 	ImageIcon bilde;
+	
+	public Masina(String marka, String modelis, 
+			String pasreizejaisAtrums, String cels) {
+		this.marka = marka;
+		this.modelis = modelis;
+		this.pasreizejaisAtrums = pasreizejaisAtrums;
+		bilde = iestatitBildi(cels);
+	}
 	
 	public ImageIcon iestatitBildi(String cels) {
 		if(!cels.endsWith(".png"))
