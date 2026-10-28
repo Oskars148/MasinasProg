@@ -1,127 +1,138 @@
-package masinas;
 
-import java.io.File;
-import java.time.Year;
-import java.util.regex.Pattern;
+package masinas;
 
 import javax.swing.JOptionPane;
 
-
 public class Garaza {
-	static String virknesParbaude(String zinojums, String noklusejums) {
-		String virkne;
-		do {
-			virkne = JOptionPane.showInputDialog(zinojums, noklusejums);
-			if(virkne == null)
-				return null;
-			
-			virkne = virkne.trim();			
-		} while(!Pattern.matches("^[\\p{L} ]+$", virkne));
-		
-		return virkne;
-	}
 
-	public static void main(String[] args) {
-		String izvelne, failaNosaukums = 
-				System.getProperty("user.home") + File.separator + 
-				"Desktop" + File.separator + "minkas.txt";
-				String[] darbibuSaraksts = {"Izveidot mašīnu", "Izsaukt metodi", 
-						"Saglabāt failā", "Apskatīt failā saglabātās mašīnas", 
-						"Aizvērt"};
-				
-				do {
-					izvelne = (String) JOptionPane.showInputDialog(null, 
-							"Izvēlies darbību", "Darbību izvēle", 
-							JOptionPane.QUESTION_MESSAGE, null, darbibuSaraksts, 
-							darbibuSaraksts[0]);
-					
-					if(izvelne == null)
-						izvelne = "Aizvērt";
-					
-					switch(izvelne) {
-					case "Izveidot mašinu":
-						String marka, modelis, krasa, pasreizejiasAtrumus,
-						cels;
-						
-						marka = 
-								virknesParbaude("Ievadi mašīnas  marku", "BMW");
-						modelis = 
-								virknesParbaude("Norādi mašīnas modeli", "f90");
-						krasa =
-								virknesParbaude("Kāda ir mašīnas krāsa krāsa?", "Melna");
-						pasreizejiasAtrumus =
-								virknesParbaude("Kāds ir mašinas pašreizējais ātrums?", 
-										"170 km/h");
-						cels = 
-								virknesParbaude("Ievadi bildes nosaukumu", "");
-						
-						Masina = new Masina(marka, modelis, 
-								krasa, pasreizejiasAtrumus, cels);
-						break;
-						
-					case "Izsaukt metodi":
-						if(Masina != null) {
-							String[] metozuSaraksts = {"paātrināt", 
-							"bremzēt", "noparkoties", "noteikt ātrumu",
-							"pārkrāsot"};
-							
-							String metode = (String) JOptionPane.showInputDialog(null, 
-									"Izvēlies metodi", "Metodes izvēle",
-									JOptionPane.QUESTION_MESSAGE, null, 
-									metozuSaraksts, metozuSaraksts[0]);
-							
-							if(metode == null)
-								break;
-							
-							switch(metode) {
-							case "paātrināt":
-								Masina.paatrinat();
-								break;
-								
-							case "bremzēt":
-								Masina.bremzet();
-								break;
-								
-							case "noparkoties":
-								Masina.noparkoties();
-								break;
-								
-							case "noteikt ātrumu":
-								Masina.noteiktAtrumu();
-								break;
-								
-							case "pārkrāsot":
-								Masina.parkrasot();
-								break;
-							}
-							
-						} else 
-							JOptionPane.showMessageDialog(null,
-									"Vispirms izveido mašīnu!", "Brīdinājums", 
-									JOptionPane.WARNING_MESSAGE);
-						break;
-						
-					case "Saglabāt failā":
-						if(Masina != null)
-							DarbsArFailu.saglabat(Masina, failaNosaukums);
-						
-						else
-							JOptionPane.showMessageDialog(null,
-							"Vispirms izveido Mašīnu!", "Brīdinājums", 
-							JOptionPane.WARNING_MESSAGE);
-						break;
-						
-					case "Apskatīt failā saglabātās mašīnas":
-						DarbsArFailu.nolasit(failaNosaukums);
-						break;
-						
-					case "Aizvērt":
-						JOptionPane.showMessageDialog(null,
-						"Programma apturēta!", "Paziņojums", 
-						JOptionPane.INFORMATION_MESSAGE);
-						break;
-					}
-					
-				} while(!izvelne.equals("Aizvērt"));
-	}
+    public static void main(String[] args) {
+
+        Masina masina = null;
+        String izvelne;
+
+        String[] darbibas = {
+            "Izveidot mašīnu",
+            "Izsaukt metodi",
+            "Aizvērt"
+        };
+
+        do {
+            izvelne = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Izvēlies darbību:",
+                    "Garāža",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    darbibas,
+                    darbibas[0]);
+
+            if (izvelne == null) {
+                izvelne = "Aizvērt";
+            }
+
+            switch (izvelne) {
+
+                case "Izveidot mašīnu":
+                    String marka = JOptionPane.showInputDialog(
+                            "Ievadi mašīnas marku:", "BMW");
+
+                    if (marka == null || marka.trim().isEmpty()) {
+                        break;
+                    }
+
+                    String modelis = JOptionPane.showInputDialog(
+                            "Ievadi mašīnas modeli:", "F90");
+
+                    if (modelis == null || modelis.trim().isEmpty()) {
+                        break;
+                    }
+
+                    String krasa = JOptionPane.showInputDialog(
+                            "Ievadi mašīnas krāsu:", "Melna");
+
+                    if (krasa == null || krasa.trim().isEmpty()) {
+                        break;
+                    }
+
+                    String atrums = JOptionPane.showInputDialog(
+                            "Ievadi pašreizējo ātrumu (km/h):", "170");
+
+                    if (atrums == null) {
+                        break;
+                    }
+
+                    int atrumsSkaitlis = Integer.parseInt(atrums);
+
+                    if (atrumsSkaitlis < 0) {
+                        JOptionPane.showMessageDialog(null,
+                                "Ātrums nevar būt negatīvs!");
+                        break;
+                    }
+
+                    masina = new Masina(marka, modelis, krasa, atrumsSkaitlis);
+
+                    JOptionPane.showMessageDialog(null, "Mašīna izveidota!");
+                    
+                    break;
+
+                case "Izsaukt metodi":
+                    if (masina == null) {
+                        JOptionPane.showMessageDialog(null,
+                                "Vispirms izveido mašīnu!");
+                        break;
+                    }
+
+                    String[] metodes = {
+                        "Paātrināt",
+                        "Bremzēt",
+                        "Noparkoties",
+                        "Noteikt ātrumu",
+                        "Pārkrāsot"
+                    };
+
+                    String metode = (String) JOptionPane.showInputDialog(
+                            null,
+                            "Izvēlies metodi:",
+                            "Metodes",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            metodes,
+                            metodes[0]);
+
+                    if (metode == null) {
+                        break;
+                    }
+
+                    switch (metode) {
+                        case "Paātrināt":
+                            masina.paatrinat();
+                            break;
+
+                        case "Bremzēt":
+                            masina.bremzet();
+                            break;
+
+                        case "Noparkoties":
+                            masina.noparkoties();
+                            break;
+
+                        case "Noteikt ātrumu":
+                            masina.noteiktAtrumu();
+                            break;
+
+                        case "Pārkrāsot":
+                            masina.parkrasot();
+                            break;
+                    }
+
+                    break;
+
+                case "Aizvērt":
+                    JOptionPane.showMessageDialog(null,
+                            "Programma apturēta!");
+                    break;
+            }
+
+        } while (!izvelne.equals("Aizvērt"));
+    }
 }
