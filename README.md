@@ -7,10 +7,10 @@ Projekts ļauj lietotājam darboties ar mašīnu.
 - [X] Papildinatas GitHub kratuves saturs iegust (pull) lokalai lietosanai
 - [X] Pievienotas pārbaudes
 - [X] Mašīnas izveide
-- [ ] Mašīnas paātrināšana
-- [ ] Mašīnas bremzēšana
-- [ ] Mašīnas noparkošana
-- [ ] Mašīnas ātruma noteikšana
-- [ ] Mašīnas pārkrāsošana
+- [X] Mašīnas paātrināšana
+- [X] Mašīnas bremzēšana
+- [X] Mašīnas noparkošana
+- [X] Mašīnas ātruma noteikšana
+- [X] Mašīnas pārkrāsošana
 - [ ] .jar faila izveide
-- [X] Darbs ar failiem
+- [ ] Darbs ar failiem
